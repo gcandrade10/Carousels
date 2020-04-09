@@ -1,5 +1,6 @@
 package com.example.carousels
 
+import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,7 +12,7 @@ object ApiFactory {
         val newUrl = chain.request().url()
             .newBuilder()
             .build()
-
+        Log.d("API_FACTORY",newUrl.toString())
         val newRequest = chain.request()
             .newBuilder()
             .url(newUrl)

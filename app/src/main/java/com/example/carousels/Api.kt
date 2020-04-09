@@ -19,8 +19,7 @@ interface Api {
         "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
         "Referer: http://192.168.0.16:8080/",
         "Accept-Language: es-US,es-419;q=0.9,es;q=0.8",
-        "Cookie: JSESSIONID=20F894AE42557C6E22B69E5CF485091E; streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ"
-
+        "Cookie: streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ; JSESSIONID=77F74E8FBED35433314F211583D8A42F"
     )
     @GET("dash/listContinueWatching.json")
     fun getlistContinueWatching(): Deferred<Response<List<MyTitle>>>
@@ -33,7 +32,7 @@ interface Api {
         "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
         "Referer: http://192.168.0.16:8080/",
         "Accept-Language: es-US,es-419;q=0.9,es;q=0.8",
-        "Cookie: JSESSIONID=20F894AE42557C6E22B69E5CF485091E; streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ"
+        "Cookie: streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ; JSESSIONID=77F74E8FBED35433314F211583D8A42F"
 
     )
     @GET("video/show.json")

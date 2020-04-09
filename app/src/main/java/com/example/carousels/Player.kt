@@ -7,6 +7,12 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_player.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import com.google.android.exoplayer2.SimpleExoPlayer
+import android.net.Uri
+import com.example.carousels.CarouselsApplication.Companion.context
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 
 
 class Player : AppCompatActivity() {
@@ -19,6 +25,7 @@ class Player : AppCompatActivity() {
     }
 
     private val model: PlayerModel by viewModel()
+    private lateinit var player: ExoPlayer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +33,19 @@ class Player : AppCompatActivity() {
         setContentView(R.layout.activity_player)
         val id = intent.getStringExtra("video")
 
-        model.url.observe(this, Observer { url ->
-            play("http://192.168.0.16:8080$url")
+        model.url.observe(this, Observer { show ->
+            play(
+                "http://192.168.0.16:8080${show.files.first().src}",
+                show.viewedStatus.currentPlayTime.toLong() * 1000
+            )
 
         })
         model.getUrl(id)
 
     }
 
-    fun play(source: String) {
-        var map: HashMap<String, String> = HashMap<String, String>()
+    private fun play(source: String, position: Long) {
+        var map: HashMap<String, String> = HashMap()
         map["Connection"] = "keep-alive"
         map["profileId"] = "1"
         map["Accept"] = "application/json, text/plain, */*"
@@ -43,8 +53,29 @@ class Player : AppCompatActivity() {
         map["X-Requested-With"] = "XMLHttpRequest"
         map["X-Requested-With"] = "XMLHttpRequest"
         map["Cookie"] =
-            "JSESSIONID=20F894AE42557C6E22B69E5CF485091E; streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ"
-        andExoPlayerView.setSource(source, map)
+            "streama_remember_me=YWRtaW46MTU4NzY1MTA4NzEwMzplMDc2NTg0NjE0ZjVmNzA5Y2IyZjU4YjNmYzQ0YzQ3YQ; JSESSIONID=77F74E8FBED35433314F211583D8A42F"
 
+        player = SimpleExoPlayer.Builder(context).build()
+        playerView.player = player
+        //andExoPlayerView.setSource(source, map)
+
+        val uri = Uri.parse(source)
+
+        val sourceFactory = DefaultHttpDataSourceFactory("exoplayer-agent")
+        if (map != null) {
+            for (entry in map.entries)
+                sourceFactory.defaultRequestProperties.set(entry.key, entry.value)
+        }
+
+        val mediaSource = ProgressiveMediaSource.Factory(sourceFactory).createMediaSource(uri)
+
+        player.prepare(mediaSource, true, false)
+        player.seekTo(position)
+        player.playWhenReady = true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
     }
 }

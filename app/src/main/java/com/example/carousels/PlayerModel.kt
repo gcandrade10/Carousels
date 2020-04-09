@@ -12,13 +12,13 @@ class PlayerModel(private val repository: Repository) : ViewModel() {
     private val parentJob = Job()
     private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Default
     private val scope = CoroutineScope(coroutineContext)
-    val url = MutableLiveData<String>()
+    val url = MutableLiveData<Show>()
 
     fun getUrl(id: String) {
         scope.launch {
             val link = repository.getShow(id.toInt())
             link?.let {
-                url.postValue(it.files.first().src)
+                url.postValue(it)
 
             }
         }

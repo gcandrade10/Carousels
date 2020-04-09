@@ -25,12 +25,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun getConfig(pUrl: String) {
         scope.launch {
-            val config = repository.getConfig(pUrl)
+            //val config = repository.getConfig(pUrl)
             val watching = repository.getlistContinueWatching()
 
             watching?.let {list ->
                 val items = list.map {
-                    Item(it.video.title, "https://image.tmdb.org/t/p/w300${it.video.poster_path}", "${it.id}")
+                    Item(it.video.title, "https://image.tmdb.org/t/p/w300${it.video.poster_path}", "${it.video.id}")
                 }
                 val carousel = Carousel("Continue watching", "thumb", items)
                 mainLiveData.postValue(listOf(carousel))

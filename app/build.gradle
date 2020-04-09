@@ -74,5 +74,5 @@ dependencies {
     //Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.14'
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
 }
