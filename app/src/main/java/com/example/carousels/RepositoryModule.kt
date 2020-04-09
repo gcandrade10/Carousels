@@ -8,6 +8,7 @@ val repositoryModule = module {
     single { MoshiManager.moshi }
     single { Repository(ApiFactory.api) }
     viewModel { MainViewModel(get()) }
+    viewModel { PlayerModel(get()) }
 }
 
 

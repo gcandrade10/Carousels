@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.carousels.CarouselsApplication.Companion.context
 import com.squareup.picasso.Picasso
 
-class HorizontalAdapter(val type: String, val items: List<Item>, context: Context) :
+class HorizontalAdapter(val type: String, val items: List<Item>, val context: Context) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -38,7 +37,8 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
     fun bind(type: String, item: Item, i: Int, context: Context) {
-        val categories = arrayOf("nature", "animals", "tech", "arch", "people", "grayscale", "sepia")
+        val categories =
+            arrayOf("nature", "animals", "tech", "arch", "people", "grayscale", "sepia")
         val index = i % categories.size
         if (type == "thumb") {
             mTitleView?.setBackgroundColor(context.getColor(R.color.gray))
@@ -51,5 +51,13 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
             else -> "https://placeimg.com/640/480/${categories[index]}"
         }
         Picasso.get().load(url).into(mImageView)
+        mImageView?.setOnClickListener {
+            context.startActivity(
+                Player.getIntent(
+                    context,
+                    item.video
+                )
+            )
+        }
     }
 }

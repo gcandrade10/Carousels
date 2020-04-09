@@ -24,10 +24,11 @@ object ApiFactory {
         .addInterceptor(authInterceptor)
         .build()
 
+    val converter = MoshiConverterFactory.create().asLenient()
     private fun retrofit(): Retrofit = Retrofit.Builder()
         .client(client)
-        .baseUrl("http://localhost/")
-        .addConverterFactory(MoshiConverterFactory.create())
+        .baseUrl("http://192.168.0.16:8080/")
+        .addConverterFactory(converter)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
