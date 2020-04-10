@@ -12,10 +12,11 @@ object ApiFactory {
         val newUrl = chain.request().url()
             .newBuilder()
             .build()
-        Log.d("API_FACTORY",newUrl.toString())
+        Log.d("API_FACTORY", newUrl.toString())
         val newRequest = chain.request()
             .newBuilder()
             .url(newUrl)
+            .addHeader("Cookie", cookie)
             .build()
 
         chain.proceed(newRequest)

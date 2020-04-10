@@ -21,4 +21,11 @@ class Repository(private val api: Api) : BaseRepository() {
             errorMessage = "Error Fetching Popular Movies"
         )
     }
+
+    suspend fun saveCurrentTime(videoId: Int, time: Long): SaveResponse? {
+        return safeApiCall(
+            call = { api.saveCurrentTime(videoId, time).await() },
+            errorMessage = "Error saving Current Time"
+        )
+    }
 }

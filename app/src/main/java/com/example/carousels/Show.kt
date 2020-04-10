@@ -1,7 +1,7 @@
 package com.example.carousels
 
 class Show(
-    val id: String,
+    val id: Int,
     val overview: String,
     val files: List<File>,
     val viewedStatus: ViewedStatus

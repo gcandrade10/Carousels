@@ -75,4 +75,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
+
+    implementation "io.reactivex.rxjava3:rxjava:3.0.0"
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
 }
