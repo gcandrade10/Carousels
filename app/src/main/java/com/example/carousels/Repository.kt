@@ -28,4 +28,12 @@ class Repository(private val api: Api) : BaseRepository() {
             errorMessage = "Error saving Current Time"
         )
     }
+
+    suspend fun login(username: String, password: String): Unit? {
+        return safeApiCall(
+            call = { api.authenticate(username, password).await() },
+            errorMessage = "Error saving Current Time"
+
+        )
+    }
 }

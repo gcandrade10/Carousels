@@ -2,10 +2,7 @@ package com.example.carousels
 
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface Api {
     @GET
@@ -47,4 +44,11 @@ interface Api {
         @Query("videoId") videoId: Int,
         @Query("currentTime") currentTime: Long
     ): Deferred<Response<SaveResponse>>
+
+    @FormUrlEncoded
+    @POST("login/authenticate")
+    fun authenticate(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Deferred<Response<Unit>>
 }
